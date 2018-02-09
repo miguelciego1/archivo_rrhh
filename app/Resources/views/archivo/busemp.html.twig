@@ -1,0 +1,32 @@
+{% extends 'main.html.twig' %} 
+{% block css %}
+<style>
+    .x_content{
+        height:750px;
+    }
+    {{ form_stylesheet(form) }}
+</style>
+{% endblock %}
+{% block javascripts %}
+    {{ form_javascript(form) }}
+{% endblock %}
+{% block body %}
+    
+<div class="col-md-12">
+    <div class="x_panel">
+        <div class="x_title">
+        {# COLOCAR EL TITULO#}
+        <H2>Busqueda de Funcionario</H2>
+            <div class="clearfix"></div>
+        </div>
+        <div class="x_content">
+        {#CONTENIDO#}
+            {{ form_start(form) }}
+                {{ form_widget(form.filtro, { 'attr' : { 'class': ''} }) }}
+            {{ form_widget(form) }}
+                <input class="btn btn-success" type="submit" value="Buscar" />
+            {{ form_end(form) }}
+        </div>
+    </div>
+</div>    
+{% endblock %}

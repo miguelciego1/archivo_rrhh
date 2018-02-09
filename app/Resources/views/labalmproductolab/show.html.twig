@@ -1,0 +1,43 @@
+{% extends 'main.html.twig' %}
+
+{% block body %}
+    <h1>PRODUCTO</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>COD. PROD.: </th>
+                <td>{{ labAlmProductolab.producto.codpro }}</td>
+            </tr>
+            <tr>
+                <th>PRODUCTO</th>
+                <td>{{labAlmProductolab.producto.nombre}}</td>
+            </tr>
+            <tr>
+                <th>SALDO</th>
+                <td>{{ labAlmProductolab.stock }}</td>
+            </tr>
+           
+            <tr>
+                <th>MINIMO</th>
+                <td>{{ labAlmProductolab.minimo }}</td>
+            </tr>
+            <tr>
+                <th>ESTADO</th>
+                <td>{% if labAlmProductolab.stock==0 %}
+                <span class="label label-danger"> Agotado</span>
+                {% elseif labAlmProductolab.stock < labAlmProductolab.minimo %}
+                <span class="label label-warning">Por agotar</span>
+                {% else %}
+                <span class="label label-success">Disponible</span>
+                {% endif %}</td>
+            </tr>
+            
+        </tbody>
+    </table>
+
+            <a href="{{ path('labalmproductolab_index') }}" class="btn btn-default">Ir al Listado</a>
+      
+            <a href="{{ path('labalmproductolab_edit', { 'id': labAlmProductolab.id }) }}" class="btn btn-warning">Editar</a>
+            <a href="{{ path('labalmproductolab_delete', { 'id': labAlmProductolab.id }) }}" class="btn btn-danger">Eliminar</a>
+{% endblock %}

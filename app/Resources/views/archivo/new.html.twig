@@ -1,0 +1,24 @@
+{% extends 'main.html.twig' %}
+{% block css %}
+    {{ form_stylesheet(form) }}
+{% endblock%}
+{% block javascripts %}
+    {{ form_javascript(form) }}
+{% endblock %}
+{% block body %}
+    <div class="x_panel">
+        <div class="x_title">
+            <h2>Nuevo Registro<small>(Archivo)</small></h2>
+            <div class="clearfix"></div>
+        </div>
+        <div class="x_content">
+              <div class="col-md-6">
+                {{ form_start(form) }}
+                    {{ form_widget(form) }}
+                    <input class="btn btn-success pull-right" type="submit" value="Guardar" />
+                    <a class="btn btn-default pull-right" href="{{ path('archivo_index') }}">Volver a la lista</a>
+                {{ form_end(form) }}
+              </div>
+        </div>
+    </div>
+{% endblock %}

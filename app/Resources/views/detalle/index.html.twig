@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>detalle list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nombre</th>
+                <th>Archivo</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for detalle in detalles %}
+            <tr>
+                <td><a href="{{ path('detalle_show', { 'id': detalle.id }) }}">{{ detalle.id }}</a></td>
+                <td>{{ detalle.nombre }}</td>
+                <td>{{ detalle.archivo }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('detalle_show', { 'id': detalle.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('detalle_edit', { 'id': detalle.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('detalle_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}

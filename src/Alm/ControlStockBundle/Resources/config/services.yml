@@ -1,0 +1,9 @@
+services:
+#    alm_control_stock.example:
+#        class: Alm\ControlStockBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]
+     alm_control_stock.form.Egreso:
+        class: Alm\ControlStockBundle\Form\EgresoType
+        arguments: ["@doctrine.orm.entity_manager"]
+        tags:
+            - { name: form}

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+    <head>
+      <style>
+      table#logo{
+      padding:50px;
+      }
+      td#sub{
+           border-bottom: 1px solid #ccc;
+
+      }
+      body{
+        font-size: 75%;
+      }
+      </style>
+    </head>
+    <body >
+
+        <table width=95% align="center">
+            <tr width=90%>
+                <td width="10%" align="right"><span><b>Nº</b> {{labAlmEgreso.id}}</span></td>
+                <td width="10%"  align="right" id="numero"><h4><b></b></h4></td>
+            </tr>
+        </table>
+        <h4 style="text-align:center" widtd="10%"><b>Egreso de Insumos <br> RRHH  </b></h4>
+        <table align="center" width="95%">
+            <tr>
+                <td width="22%">Seccion :</td>
+                <td id="sub" >{% if labAlmEgreso.seccion=='R' %}
+                                          <span>RC-IVA</span>
+
+                                          {% elseif labAlmEgreso.seccion=='P'%}
+                                          <span>PLANILLA</span>
+
+                                          {% elseif labAlmEgreso.seccion=='A'%}
+                                          <span>ARCHIVO</span>
+
+                                          {% elseif labAlmEgreso.seccion== 'E'%}
+                                          <span>EVALUACION Y CAPACITACION</span>
+
+                                          {% elseif labAlmEgreso.seccion=='AFP'%}
+                                          <span>AFP</span>
+
+                                          {% elseif labAlmEgreso.seccion== 'CA'%}
+                                          <span>CONTROL ASISTENCIA</span>
+
+                                          {% elseif labAlmEgreso.seccion== 'SU'%}
+                                          <span>SUBSIDIO</span>
+
+                                          {% elseif labAlmEgreso.seccion== 'S'%}
+                                          <span>SECRETARIA</span>
+
+                                          {% elseif labAlmEgreso.seccion== 'AL'%}
+                                          <span>ASESORIA LEGAL</span>
+                                          {% endif %}</td>
+                <td width="20%">Fecha de Entregado :</td>
+                <td id="sub">{% if labAlmEgreso.fechaEntregado%}{{labAlmEgreso.creadoEl|date('d-m-Y')}}{% endif %}</td>
+            </tr>
+
+            <tr>
+                <td>Recibido Por:</td>
+                <td id="sub">{{labAlmEgreso.recibidoPor}}</td>
+                <td width="15%">Cantidad de Insumos :</td>
+                <td id="sub">{{labAlmDetalleegresos|length}}</td>
+            </tr>
+
+        </table >
+        <br>
+        <br>
+        <table width="95%" align="center">
+            <tr>
+                <td id="sub" align="center"><b>Codigo</b></td>
+                <td id="sub" align="center"><b>Descripcion del Producto</b></td>
+                <td id="sub" align="center"><b>Unidad</b></td>
+                <td id="sub" align="center"><b>Cantidad</b></td>
+            </tr>
+            {% for detalle in labAlmDetalleegresos%}
+                <tr style="page-break-inside: avoid";>
+                    <td>{{detalle.productolab.producto.codpro}}</td>
+                    <td >{{detalle.productolab.producto.nombre}}</td>
+                    <td align="center">{{detalle.productolab.producto.unimedida}}</td>
+                    <td align="center">{{detalle.cantidad}}</td>
+                </tr>
+            {% endfor%}
+        </table>
+        <br>
+        <br>
+        <br>
+        <table width="100%" cellpadding="10">
+             <tr>
+                 <td width="30%" align="center" height="60px"><hr width="90%" size="0"><b>Despachador</b></hr></td>
+                 <td width="30%" align="center" height="60px"><hr width="90%" size="0"><b>Recibido Por</b></hr></td>
+             </tr>
+
+         </table>
+    </body>
+</html>

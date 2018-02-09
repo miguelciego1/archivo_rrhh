@@ -1,0 +1,56 @@
+{% extends 'main.html.twig' %}
+
+{% block body %}
+	{% for flashMessaje in app.session.flashbag.get ('mensaje')%}
+            <div  class="alert alert-success alert-dismissible" role="alert" >
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
+                 {{ flashMessaje}}
+            </div>
+        {% endfor%}
+        {% for flashMessaje in app.session.flashbag.get ('advertencia')%}
+            <div  class="alert alert-warning alert-dismissible" role="alert" >
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
+                 {{ flashMessaje}}
+            </div>
+        {% endfor%}
+        {% for flashMessaje in app.session.flashbag.get ('error')%}
+            <div  class="alert alert-danger alert-dismissible" role="alert" >
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
+                 {{ flashMessaje}}
+            </div>
+        {% endfor%}
+       <div class="row">
+              <div class="col-md-8 col-md-offset-1 col-sm-8 col-sm-offset-1 col-xs-8 col-xs-offset-1">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2>Ingreso <small>Datos Generales</small></h2>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">
+                {{ form_start(form) }}
+                <div class="ln_solid"></div>
+                <div class="form-group">
+                  <div class="col-md-12">
+                    {{ form_widget(form) }}
+                    <a href="{{ path('labalmingreso_index') }}" class="btn btn-default"><i class="fa fa-list" aria-hidden="true"></i>  Ir a la lista</a>
+
+                    <input class="btn btn-success" type="submit" value="Guardar" />
+                  </div>
+                </div>
+                {{ form_end(form) }}
+              </div>
+            </div>
+          </div>
+        </div>
+{% endblock %}
+{% block javascripts %}
+    <script>
+     $('.datepicker').datepicker({
+      locale: 'no',
+      format: 'yyyy-mm-dd'
+      });
+   </script>
+{% endblock %}

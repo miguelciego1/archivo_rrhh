@@ -1,0 +1,65 @@
+{% extends 'main.html.twig' %}
+{% block body %}
+    <div class="x_panel">
+        <div class="page-title">
+            <div class="title_left">
+               <h2>Lista de Funcionario <small>(Archivo)</small></h2>
+            </div>
+            <div class="title_right">
+                <form method="get" action="" class="form-inline" role="search">
+                    <div class="form-group pull-right top_search ">
+                    <div class="input-group">
+                        <input type="text" value="{{ app.request.get('query') }}" name="query" class="form-control" placeholder="Buscar ...">
+                        <span class="input-group-btn">
+                          <button class="btn btn-default" type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+                        </span>
+                      </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="x_title">
+            <div class="clearfix"></div>
+        </div>
+        <div class="x_content">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>FECHA DE REGISTRO</th>
+                        <th>FUNCIONARIO</th>
+                        <th>CODIGO</th>
+                        <th>CARGO</th>
+                        <th>ITEM</th>
+                        <th>OBSERVACION</th>
+                        <th>ACCION</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for archivo in archivos %}
+                    <tr>
+                        <td><a href="{{ path('archivo_show', { 'id': archivo.id }) }}">{{ archivo.id }}</a></td>
+                        <td>{% if archivo.fecha %}{{ archivo.fecha|date('d-m-Y') }}{% endif %}</td>
+                        <td> {{ archivo.nombre }} </td>
+                        <td>{{ archivo.nroempleado }}</td>
+                        <td>{{ archivo.cargo}}</td>
+                        <td>{{archivo.item}}</td>
+                        <td>
+                          {% if archivo.glosa != null %}
+                          {{ archivo.glosa|upper }}
+                          {% endif %}
+                          {% if archivo.glosa == null %}
+                            SIN OBSERVACION
+                          {% endif %}
+
+                        </td>
+                        <td>
+                            <a title="Ver File" class="btn btn-default" href="{{ path('archivo_show', { 'id': archivo.id }) }}"><i class="fa fa-file-text" aria-hidden="true"></i></a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

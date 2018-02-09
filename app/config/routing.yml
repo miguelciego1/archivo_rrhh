@@ -1,0 +1,39 @@
+cps_per_archivo_tipo:
+    resource: "@CpsPerArchivoBundle/Controller/tipoController.php"
+    type:     annotation
+
+cps_per_archivo_detalle:
+    resource: "@CpsPerArchivoBundle/Controller/detalleController.php"
+    type:     annotation
+    
+cps_per_archivo_archivo:
+    resource: "@CpsPerArchivoBundle/Controller/archivoController.php"
+    type:     annotation
+
+alm_control_stock:
+    resource: "@AlmControlStockBundle/Controller/"
+    type:     annotation
+    prefix:   /
+    
+app:
+    resource: "@AppBundle/Controller/"
+    type:     annotation
+
+fos_user_security:
+    resource: "@FOSUserBundle/Resources/config/routing/security.xml"
+
+fos_user_profile:
+    resource: "@FOSUserBundle/Resources/config/routing/profile.xml"
+    prefix: /profile
+
+fos_user_register:
+    resource: "@FOSUserBundle/Resources/config/routing/registration.xml"
+    prefix: /register
+
+fos_user_resetting:
+    resource: "@FOSUserBundle/Resources/config/routing/resetting.xml"
+    prefix: /resetting
+
+fos_user_change_password:
+    resource: "@FOSUserBundle/Resources/config/routing/change_password.xml"
+    prefix: /profile

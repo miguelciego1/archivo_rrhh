@@ -1,0 +1,316 @@
+{% extends 'main.html.twig' %}
+{% block css %}
+    <style>
+        .x_panel{
+            height:100%;
+        }
+        .x_content{
+            height:100%;
+        }
+    </style>
+{% endblock%}
+{% block body %}
+{% for flashMessaje in app.session.flashbag.get ('mensaje')%}
+        <div  class="alert alert-success alert-dismissible" role="alert" >
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span></button>
+            {{ flashMessaje}}
+        </div>
+    {% endfor%}
+<div class="x_panel">
+    <div class="x_title">
+        <h2><i class="fa fa-user" aria-hidden="true"></i> Información <small>({{archivo.id}})</small></h2>
+        <div class="pull-right">
+            {{ archivo.fecha|date('Y-m-d H:i:s') }}
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="x_content">
+        <div class="row">
+                <div class="col-md-4">
+                    <p><strong>Codigo :</strong> {{ archivo.nroempleado }}</p>
+                    <p><strong>Nombre :</strong> {{ empleado|upper }}</p>
+                    <p><strong>Correo :</strong> {{ empleado.email }}
+                    {% if empleado.email == null %}No hay datos{% endif %}</p>
+                </div>
+                <div class="col-md-4">
+                    <p><strong>Sexo :</strong>
+                        {% if empleado.sexo == 'F' %}Femenino{% endif %}
+                        {% if empleado.sexo == 'M' %}Masculino{% endif %}
+                    </p>
+                    <p><strong>Dirección :</strong>
+                        {{ empleado.direccion }}
+                        {% if empleado.direccion == null %}No hay datos{% endif %}
+                    </p>
+                    <p> <strong>Cargo :</strong>
+                        {{ Auxempleado.cargo }}
+                    </p>
+                </div>
+                <div class="col-md-4">
+                    <p><strong>Fecha :</strong>
+                        {% if Auxempleado.ingresoEl != 'ninguno' %}
+                            {{ Auxempleado.ingresoEl|date('d-m-Y') }}
+                            {% endif %}
+                            {% if Auxempleado.ingresoEl == 'ninguno' %}
+                            {{ Auxempleado.ingresoEl }}
+                            {% endif %}
+                    </p>
+                    <p><strong>Item :</strong> {{ Auxempleado.item }}</p>
+                    <p><strong>Horario :</strong>{{ Auxempleado.carHoraria }}</p>
+                    <br>
+            
+        </div>
+        </div>
+    </div>
+</div>
+<div class="x_panel">
+    <div class="x_title">
+        <h2><i class="fa fa-folder-open" aria-hidden="true"></i> Archivos</h2>
+        <ul class="nav navbar-right panel_toolbox">
+            </li>
+                <li class="dropdown">
+                    <a class="btn btn-default" type="button"  data-toggle="modal" data-target="#myModal" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                        Agregar   <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
+                    </a>
+                </li>
+            </li>
+        </ul>
+    <div class="clearfix"></div>
+    </div>
+    <div class="x_content">
+        <div class="" role="tabpanel" data-example-id="togglable-tabs">
+            <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
+                <li role="presentation" class="active"><a href="#tab_content1" id="home-tab" role="tab" data-toggle="tab" aria-expanded="true">Modalidad de Ingreso</a>
+                </li>
+                <li role="presentation" class=""><a href="#tab_content2" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">Vida Laboral</a>
+                </li>
+                <li role="presentation" class=""><a href="#tab_content3" role="tab" id="profile-tab2" data-toggle="tab" aria-expanded="false">Declaración Jurada</a>
+                </li>
+                <li role="presentation" class=""><a href="#tab_content4" role="tab" id="profile-tab2" data-toggle="tab" aria-expanded="false">Desempeño y Capacitación</a>
+                </li>
+                <li role="presentation" class=""><a href="#tab_content5" role="tab" id="profile-tab2" data-toggle="tab" aria-expanded="false">Vacaciones, Bajas y Licencias</a>
+                </li>
+            </ul>
+            <div id="myTabContent" class="tab-content">
+                <div role="tabpanel" class="tab-pane fade active in" id="tab_content1" aria-labelledby="home-tab">
+                    <div class="row">
+                        {% for archivo in detalle1 %}
+                            <div class="col-md-55">
+                                <div class="thumbnail">
+                                    <div class="image view view-first">
+                                    {%if archivo.ext == 'peg' or archivo.ext == 'png' %}
+                                        <img style="width: 100%; display: block;" src="{{'/cajaPetrolera/web/uploads/Personal/Archivo/FileVirtual/' ~ archivo.archivo }}" alt="SIN VISTA PREVIA">
+                                    {%endif%}
+                                    {%if archivo.ext == 'pdf' %}
+                                        <img style="width: 100%; display: block;" src="{{ asset('Personal/default/pdf.png') }}" alt="SIN VISTA PREVIA">
+                                    {%endif%}
+                                    {%if archivo.ext == 'lsx' %}
+                                        <img style="width: 100%; display: block;" src="{{ asset('Personal/default/excel.png') }}" alt="SIN VISTA PREVIA">
+                                    {%endif%}
+                                    {%if archivo.ext == 'ocx' %}
+                                        <img style="width: 100%; display: block;" src="{{ asset('Personal/default/word.png') }}" alt="SIN VISTA PREVIA">
+                                    {%endif%}
+                                    {%if archivo.ext == 'ptx' %}
+                                        <img style="width: 100%; display: block;" src="{{ asset('Personal/default/pptx.png') }}" alt="SIN VISTA PREVIA">
+                                    {%endif%}
+                                        <div class="mask">
+                                        <p style="margin-left:10px;">Subido el : {{ archivo.fechareg |date('d-m-Y') }}</p>
+                                        <div class="tools tools-bottom">
+                                            <a href="{{ path('detalle_eliminar', { 'id': archivo.id }) }}"  onclick="return confirm('¿ Esta usted seguro eliminar el archivo ?')">
+                                            <i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                                        </div>
+                                        </div>
+                                    </div>
+                                    <div class="caption">
+                                        <a target="_blank "href=" {{'/cajaPetrolera/web/uploads/Personal/Archivo/FileVirtual/' ~ archivo.archivo }}"><strong>{{archivo.nombre|title}} ID- {{archivo.id}}</strong></a>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div role="tabpanel" class="tab-pane fade" id="tab_content2" aria-labelledby="profile-tab">
+                    <div class="row">
+                        {% for archivo in detalle2 %}
+                            <div class="col-md-55">
+                                <div class="thumbnail">
+                                    <div class="image view view-first">
+                                        {%if archivo.ext == 'peg' or archivo.ext == 'png' %}
+                                            <img style="width: 100%; display: block;" src="{{'/cajaPetrolera/web/uploads/Personal/Archivo/FileVirtual/' ~ archivo.archivo }}" alt="SIN VISTA PREVIA">
+                                        {%endif%}
+                                        {%if archivo.ext == 'pdf' %}
+                                            <img style="width: 100%; display: block;" src="{{ asset('Personal/default/pdf.png') }}" alt="SIN VISTA PREVIA">
+                                        {%endif%}
+                                        {%if archivo.ext == 'lsx' %}
+                                            <img style="width: 100%; display: block;" src="{{ asset('Personal/default/excel.png') }}" alt="SIN VISTA PREVIA">
+                                        {%endif%}
+                                        {%if archivo.ext == 'ocx' %}
+                                            <img style="width: 100%; display: block;" src="{{ asset('Personal/default/word.png') }}" alt="SIN VISTA PREVIA">
+                                        {%endif%}
+                                        {%if archivo.ext == 'ptx' %}
+                                            <img style="width: 100%; display: block;" src="{{ asset('Personal/default/pptx.png') }}" alt="SIN VISTA PREVIA">
+                                        {%endif%}
+                                            <div class="mask">
+                                            <p style="margin-left:10px;">Subido el : {{ archivo.fechareg |date('d-m-Y') }}</p>
+                                            <div class="tools tools-bottom">
+                                                <a href="{{ path('detalle_eliminar', { 'id': archivo.id }) }}"  onclick="return confirm('¿ Esta usted seguro eliminar el archivo ?')">
+                                                <i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                                            </div>
+                                            </div>
+                                        </div>
+                                        <div class="caption">
+                                            <a target="_blank "href=" {{'/cajaPetrolera/web/uploads/Personal/Archivo/FileVirtual/' ~ archivo.archivo }}"><strong>{{archivo.nombre|title}} ID- {{archivo.id}}</strong></a>    
+                                        </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div role="tabpanel" class="tab-pane fade" id="tab_content3" aria-labelledby="profile-tab">
+                    <div class="row">
+                        {% for archivo in detalle3 %}
+                            <div class="col-md-55">
+                                <div class="thumbnail">
+                                    <div class="image view view-first">
+                                    {%if archivo.ext == 'peg' or archivo.ext == 'png' %}
+                                         <img style="width: 100%; display: block;" src="{{'/cajaPetrolera/web/uploads/Personal/Archivo/FileVirtual/' ~ archivo.archivo }}" alt="SIN VISTA PREVIA">
+                                    {%endif%}
+                                    {%if archivo.ext == 'pdf' %}
+                                        <img style="width: 100%; display: block;" src="{{ asset('Personal/default/pdf.png') }}" alt="SIN VISTA PREVIA">
+                                    {%endif%}
+                                    {%if archivo.ext == 'lsx' %}
+                                        <img style="width: 100%; display: block;" src="{{ asset('Personal/default/excel.png') }}" alt="SIN VISTA PREVIA">
+                                    {%endif%}
+                                    {%if archivo.ext == 'ocx' %}
+                                        <img style="width: 100%; display: block;" src="{{ asset('Personal/default/word.png') }}" alt="SIN VISTA PREVIA">
+                                    {%endif%}
+                                    {%if archivo.ext == 'ptx' %}
+                                        <img style="width: 100%; display: block;" src="{{ asset('Personal/default/pptx.png') }}" alt="SIN VISTA PREVIA">
+                                    {%endif%}
+                                        <div class="mask">
+                                        <p style="margin-left:10px;">Subido el : {{ archivo.fechareg |date('d-m-Y') }}</p>
+                                        <div class="tools tools-bottom">
+                                            <a href="{{ path('detalle_eliminar', { 'id': archivo.id }) }}"  onclick="return confirm('¿ Esta usted seguro eliminar el archivo ?')">
+                                            <i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                                        </div>
+                                        </div>
+                                    </div>
+                                    <div class="caption">
+                                        <a target="_blank "href=" {{'/cajaPetrolera/web/uploads/Personal/Archivo/FileVirtual/' ~ archivo.archivo }}"><strong>{{archivo.nombre|title}} ID- {{archivo.id}}</strong></a>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div role="tabpanel" class="tab-pane fade" id="tab_content4" aria-labelledby="profile-tab">
+                    <div class="row">
+                        {% for archivo in detalle4 %}
+                            <div class="col-md-55">
+                                <div class="thumbnail">
+                                    <div class="image view view-first">
+                                    {%if archivo.ext == 'peg' or archivo.ext == 'png' %}
+                                         <img style="width: 100%; display: block;" src="{{'/cajaPetrolera/web/uploads/Personal/Archivo/FileVirtual/' ~ archivo.archivo }}" alt="SIN VISTA PREVIA">
+                                    {%endif%}
+                                    {%if archivo.ext == 'pdf' %}
+                                        <img style="width: 100%; display: block;" src="{{ asset('Personal/default/pdf.png') }}" alt="SIN VISTA PREVIA">
+                                    {%endif%}
+                                    {%if archivo.ext == 'lsx' %}
+                                        <img style="width: 100%; display: block;" src="{{ asset('Personal/default/excel.png') }}" alt="SIN VISTA PREVIA">
+                                    {%endif%}
+                                    {%if archivo.ext == 'ocx' %}
+                                        <img style="width: 100%; display: block;" src="{{ asset('Personal/default/word.png') }}" alt="SIN VISTA PREVIA">
+                                    {%endif%}
+                                    {%if archivo.ext == 'ptx' %}
+                                        <img style="width: 100%; display: block;" src="{{ asset('Personal/default/pptx.png') }}" alt="SIN VISTA PREVIA">
+                                    {%endif%}
+                                        <div class="mask">
+                                        <p style="margin-left:10px;">Subido el : {{ archivo.fechareg |date('d-m-Y') }}</p>
+                                        <div class="tools tools-bottom">
+                                            <a href="{{ path('detalle_eliminar', { 'id': archivo.id }) }}"  onclick="return confirm('¿ Esta usted seguro eliminar el archivo ?')">
+                                            <i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                                        </div>
+                                        </div>
+                                    </div>
+                                    <div class="caption">
+                                        <a target="_blank "href=" {{'/cajaPetrolera/web/uploads/Personal/Archivo/FileVirtual/' ~ archivo.archivo }}"><strong>{{archivo.nombre|title}} ID- {{archivo.id}}</strong></a>
+                                    </div>
+                                       
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>  
+                </div>
+                <div role="tabpanel" class="tab-pane fade" id="tab_content5" aria-labelledby="profile-tab">
+                    <div class="row">
+                        {% for archivo in detalle5 %}
+                            <div class="col-md-55">
+                                <div class="thumbnail">
+                                    <div class="image view view-first">
+                                    {%if archivo.ext == 'peg' or archivo.ext == 'png' %}
+                                         <img style="width: 100%; display: block;" src="{{'/cajaPetrolera/web/uploads/Personal/Archivo/FileVirtual/' ~ archivo.archivo }}" alt="SIN VISTA PREVIA">
+                                    {%endif%}
+                                    {%if archivo.ext == 'pdf' %}
+                                        <img style="width: 100%; display: block;" src="{{ asset('Personal/default/pdf.png') }}" alt="SIN VISTA PREVIA">
+                                    {%endif%}
+                                    {%if archivo.ext == 'lsx' %}
+                                        <img style="width: 100%; display: block;" src="{{ asset('Personal/default/excel.png') }}" alt="SIN VISTA PREVIA">
+                                    {%endif%}
+                                    {%if archivo.ext == 'ocx' %}
+                                        <img style="width: 100%; display: block;" src="{{ asset('Personal/default/word.png') }}" alt="SIN VISTA PREVIA">
+                                    {%endif%}
+                                    {%if archivo.ext == 'ptx' %}
+                                        <img style="width: 100%; display: block;" src="{{ asset('Personal/default/pptx.png') }}" alt="SIN VISTA PREVIA">
+                                    {%endif%}
+                                        <div class="mask">
+                                        <p style="margin-left:10px;">Subido el : {{ archivo.fechareg |date('d-m-Y') }}</p>
+                                        <div class="tools tools-bottom">
+                                            <a href="{{ path('detalle_eliminar', { 'id': archivo.id }) }}"  onclick="return confirm('¿ Esta usted seguro eliminar el archivo ?')">
+                                            <i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                                        </div>
+                                        </div>
+                                    </div>
+                                    <div class="caption">
+                                        <a target="_blank "href=" {{'/cajaPetrolera/web/uploads/Personal/Archivo/FileVirtual/' ~ archivo.archivo }}"><strong>{{archivo.nombre|title}} ID- {{archivo.id}}</strong></a>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>     
+                </div>
+            </div>
+        </div>
+        <a class="btn btn-default" href="{{ path('archivo_index') }}"><i class="fa fa-arrow-left" aria-hidden="true"></i> Volver Atrás</a>
+    </div>
+</div>
+{#MODAL#}
+<div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;
+              </button>
+              <h4 class="modal-title">Subir PDF/IMG</h4>
+            </div>
+            <div class="modal-body">
+              {{ form_start(form) }}
+                  {{ form_widget(form) }}
+            </div>
+            <div class="modal-footer">
+              <input class="btn btn-success" type="submit" value="Guardar" />
+              {{ form_end(form) }}
+              <button type="button" class="btn btn-primary pull-right" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+ {#--------------------------------------------------------------------------------------------------------------------------------------#}
+{% endblock %}
+{#<table class="pull-right">
+            <th><a class="btn btn-default" href="{{ path('archivo_index') }}">Volver Atrás</a></th>
+            <th><a class="btn btn-primary" href="{{ path('archivo_edit', { 'id': archivo.id }) }}">Modificar</a></th>
+            <th>{{ form_start(delete_form) }}
+                <input class="btn btn-danger" type="submit" value="Eliminar">
+            {{ form_end(delete_form) }}</th>
+</table>#}

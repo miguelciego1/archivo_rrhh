@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>File Virtual</title>
+    <link href="{{ asset('build/css/pagina.css') }}" rel="stylesheet">
+    <link href="{{ asset('vendors/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('vendors/Date/css/datepicker.css') }}" rel="stylesheet">
+    <link href="{{ asset('vendors/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('vendors/nprogress/nprogress.css') }}" rel="stylesheet">
+    <link href="{{ asset('vendors/iCheck/skins/flat/green.css') }}" rel="stylesheet">
+    <link href="{{ asset('vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css') }}" rel="stylesheet">
+
+   {% block css %}{% endblock %}
+    <link href="{{ asset('build/css/custom.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('build/css/base.css') }}" rel="stylesheet">
+    <link href="{{ asset('build/css/jquery-ui-1.10.4.custom.css') }}" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="{{ asset('logo.png') }}" />
+  </head>
+
+  <body class="{% block tipoPagina %}nav-md{% endblock %} " onload="document.forms['cps_almacenbundle_producto']['cps_almacenbundle_producto_creadoEL'].value=fecha;">
+    <div class="container body">
+      <div class="main_container">
+
+        {{ include('sidebarMenu.html.twig') }}
+
+        {{ include('topNavigation.html.twig') }}
+
+        <div class="right_col" role="main" >
+          {% block body %}{% endblock %}
+        </div>
+      </div>
+    </div>
+
+    {% block javascript %}
+    <script src="{{ asset('vendors/jquery/dist/push.min.js') }}"></script>
+    <script src="{{ asset('vendors/jquery/dist/jquery-1.10.2.js') }}"></script>
+    <script src="{{ asset('vendors/jquery/dist/jquery.min.js') }}"></script>
+    <script src="{{ asset('vendors/jquery/dist/jquery-ui-1.10.4.custom.min.js') }}"></script>
+    <script src="{{ asset('vendors/jquery/dist/jquery.formatCurrency.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.1/js/bootstrap-select.min.js"></script>
+    <script src="{{ asset('vendors/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('vendors/Date/js/bootstrap-datepicker.js') }}"></script>
+    <script src="{{ asset('vendors/fastclick/lib/fastclick.js') }}"></script>
+    <script src="{{ asset('vendors/nprogress/nprogress.js') }}"></script>
+    {% block javascripts %}{% endblock %}
+    <!-- Custom Theme Scripts -->
+    <script src="{{ asset('build/js/custom.min.js') }}"></script>
+    {% endblock %}
+  </body>
+  {{ include('footer.html.twig') }}
+</html>

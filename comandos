@@ -1,0 +1,56 @@
+sudo apt-get update
+sudo apt-get install php5-intl
+echo 'date.timezone = UTC' | sudo tee --append /etc/php5/apache2/php.ini
+mysql-ctl install
+phpmyadmin-ctl install
+mysql-ctl start
+sudo curl -LsS https://symfony.com/installer -o /usr/local/bin/symfony
+sudo chmod a+x /usr/local/bin/symfony
+symfony new cps_vacaciones 2.8.8
+
+shopt -s dotglob
+mv cps_vacaciones/* ./
+rm -rf cps_vacaciones
+
+
+crear bundle -----------------
+php app/console generate:bundle
+crear entidades------------------
+php app/console doctrine:generate:entity
+crear setter y getter---------------------
+./app/console doctrine:generate:entities
+crear tablas-------------------
+php app/console doctrine:schema:update --force
+crear formulario-----------
+php app/console doctrine:generate:form [nombre del bundle]:[nombre de entidad]
+crear CRUD,FORM,ROUTING -------------------
+./app/console doctrine:generate:crud
+
+CajaBancoBackendBundle
+
+
+borrar cahe-----------
+./app/console cache:clear
+
+705649960
+
+impor de una base de datos existente------------------
+php bin/console doctrine:mapping:import --force AcmeBlogBundle yml
+cambiar de formato--------------------------------------------
+php app/console doctrine:mapping:convert annotation ./src
+
+
+//install elasticBundle
+sudo apt-get update (actualizar los paqueetes)
+
+//instalar java
+sudo apt-get install openjdk-7-jre  (para verificar java -version)
+//llave publica para elasticSearch
+wget -qO - https://packages.elastic.co/GPG-KEY-elasticsearch | sudo apt-key add -
+
+
+//para indexar los registros nuevos 
+./app/console fos:elastica:populate
+
+
+

@@ -1,0 +1,40 @@
+<div class="col-md-3 left_col">
+    <div class="left_col scroll-view">
+        <div class="navbar nav_title" style="border: 0;">
+              <a href="#" class="site_title">
+                <img src="{{ asset('logo.png') }}" alt="..." class="cuader">
+                 <span class="titlepage">Caja Petrolera de Salud</span></a>
+        </div><div class="clearfix"></div>
+        <div class="profile">
+            <div class="profile_pic">
+                <img src="{{ asset('production/images/img.jpg') }}" alt="..." class="img-circle profile_img">
+            </div>
+            <div class="profile_info">
+                <span>Bienvenido,{{ app.user}}</span>
+                <h2></h2>
+            </div>
+        </div><br/>
+        <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+            <div class="menu_section">
+                <h3>Recursos Humanos</h3>
+                <ul class="nav side-menu">
+                  {#--------------------------------------COMPROBANTE------------------------------------------#}
+                    <li><a><i class="fa fa-folder" aria-hidden="true"></i>Archivo <span class="fa fa-chevron-down"></span></a>
+                        <ul class="nav child_menu">
+                          <li><a href="{{path ('archivo_index')}}">Lista de Personal</a></li>
+                        </ul>
+                    </li>
+
+                    <li><a><i class="fa fa-cubes" aria-hidden="true"></i>Almacen <span class="fa fa-chevron-down"></span></a>
+                        <ul class="nav child_menu">
+                          <li><a href="{{path('labalmproductolab_index')}}">Insumos</a></li>
+                          <li><a href="{{path('labalmingreso_index')}}">Ingresos</a></li>
+                          <li><a href="{{path('labalmegreso_index')}}">Egresos</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+

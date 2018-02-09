@@ -1,0 +1,95 @@
+{% extends 'main.html.twig' %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        {% for flashMessaje in app.session.flashbag.get ('mensaje')%}
+            <div  class="alert alert-success alert-dismissible" role="alert" >
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
+                 {{ flashMessaje}}
+            </div>
+        {% endfor%}
+        {% for flashMessaje in app.session.flashbag.get ('advertencia')%}
+            <div  class="alert alert-warning alert-dismissible" role="alert" >
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
+                 {{ flashMessaje}}
+            </div>
+        {% endfor%}
+        {% for flashMessaje in app.session.flashbag.get ('error')%}
+            <div  class="alert alert-danger alert-dismissible" role="alert" >
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
+                 {{ flashMessaje}}
+            </div>
+        {% endfor%}
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2>Listado
+                        <small>Registro de Producto</small>
+                    </h2>
+                    <!-- ----------------------------------------------- -->
+
+                    <div class="title_right">
+                        <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+                            <a class="btn btn-success" href="{{ path('labalmproductolab_new') }}">
+                                <i class="glyphicon glyphicon-plus-sign">
+                                    NUEVO PRODUCTO</i>
+                            </a>
+                        </div>
+                    </div>
+                    <!-- ------------------------------------ -->
+
+                    <div class="clearfix"></div>
+                </div>
+
+                <div class="x_content">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr class="headings">
+                                <th class="column-title">CODIGO</th>
+                                <th class="column-title">DESCRIPCION</th>
+                                <th class="column-title">MINIMO</th>
+                                <th class="column-title">SALDO</th>
+                                <th class="column-title">ESTADO</th>
+                                <th class="column-title">OPCIONES</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for labAlmProductolab in labAlmProductolabs %}
+            <tr>
+                <td>{{ labAlmProductolab.producto.codPro }}</td>
+                <td>{{ labAlmProductolab.producto.nombre}}</td>
+                <td>{{ labAlmProductolab.minimo }}</td>
+                <td>{{ labAlmProductolab.stock }}</td>
+                <td>
+                {% if labAlmProductolab.stock==0 %}
+                <span class="label label-danger"> Agotado</span>
+                {% elseif labAlmProductolab.stock < labAlmProductolab.minimo %}
+                <span class="label label-warning">Por agotar</span>
+                {% else %}
+                <span class="label label-success">Disponible</span>
+                {% endif %}</td>
+                <td><a href="{{path('labalmproductolab_show',{'id':labAlmProductolab.id})}}" class="btn btn-info"><i class="fa fa-eye" aria-hidden="true"></i>Mostrar</a></td>
+                
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+{% endblock %}
+{% block javascripts %}
+    <script>
+     $('.datepicker').datepicker({
+      locale: 'no',
+      format: 'yyyy-mm-dd'
+      });
+   </script>
+{% endblock %}
